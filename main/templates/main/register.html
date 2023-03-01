@@ -1,0 +1,16 @@
+{% extends "main/header.html" %}
+
+{% block content %}
+	<form method="POST">
+		{% csrf_token %}
+		{{form.as_p}}
+
+		<button class ="btn" style="background-color:lightblue; color:teal;" type='submit'>Register</button> 
+
+		<button class ="btn" style="background-color:lightblue; color:teal;" type='cancel'>Cancel</button>
+	</form>
+	
+	Have an Account. <a href="/login"><strong>Login</strong></a> instead.
+
+ {% endblock %}
+
