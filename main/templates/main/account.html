@@ -1,0 +1,63 @@
+{% extends "main/header.html" %}
+
+{% block title %}{{ user.username }} - Profile{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col s12 m8 offset-m2 l6 offset-l3">
+        <div class="card profile-card">
+            <div class="card-content">
+                <div class="profile-header">
+                    <i class="material-icons">account_circle</i>
+                    <h4>{{ user.username }}</h4>
+                    <span class="chip category-chip">Member</span>
+                </div>
+
+                <div class="profile-info">
+                    <div class="info-row row">
+                        <div class="col s4">
+                            <span class="info-label">Username</span>
+                        </div>
+                        <div class="col s8">
+                            <span class="info-value">{{ user.username }}</span>
+                        </div>
+                    </div>
+                    <div class="info-row row">
+                        <div class="col s4">
+                            <span class="info-label">Email</span>
+                        </div>
+                        <div class="col s8">
+                            <span class="info-value">{{ user.email|default:"Not provided" }}</span>
+                        </div>
+                    </div>
+                    <div class="info-row row">
+                        <div class="col s4">
+                            <span class="info-label">Joined</span>
+                        </div>
+                        <div class="col s8">
+                            <span class="info-value">{{ user.date_joined|date:"F j, Y" }}</span>
+                        </div>
+                    </div>
+                    <div class="info-row row">
+                        <div class="col s4">
+                            <span class="info-label">Last Login</span>
+                        </div>
+                        <div class="col s8">
+                            <span class="info-value">{{ user.last_login|date:"F j, Y g:i A" }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="center-align" style="margin-top: 30px;">
+                    <a href="{% url 'main:edit_profile' %}" class="btn waves-effect waves-light blue">
+                        <i class="material-icons left">edit</i> Edit Profile
+                    </a>
+                    <a href="{% url 'main:change_password' %}" class="btn waves-effect waves-light blue-grey">
+                        <i class="material-icons left">lock</i> Change Password
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

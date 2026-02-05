@@ -1,20 +1,37 @@
 {% extends 'main/header.html' %}
 
+{% block title %}Tutorial Series - Tutorials{% endblock %}
+
 {% block content %}
 
-    <div class="row">
-        {% for tut, partone in part_ones.items %}
+<div class="breadcrumb-nav">
+    <a href="{% url 'main:homepage' %}">Home</a> &rsaquo; <span class="grey-text">Series</span>
+</div>
 
-            <div class="col s12 m6 l4">
-                <a href="{{partone}}", style="color:#000">
-                    <div class="card hoverable">
-                        <div class="card-content">
-                            <div class="card-title">{{tut.tutorial_series}}</div>
-                            <p>{{tut.series_summary}}</p>
-                        </div>
+<h4 class="section-title">Tutorial Series</h4>
+<p class="grey-text">Select a series to start reading</p>
+
+<div class="row">
+    {% for tut, partone in part_ones.items %}
+        <div class="col s12 m6 l4">
+            <a href="/{{ partone }}" style="color: #000;">
+                <div class="card hoverable category-card">
+                    <div class="card-content">
+                        <i class="material-icons">bookmark</i>
+                        <span class="card-title">{{ tut.tutorial_series }}</span>
+                        <p>{{ tut.series_summary }}</p>
                     </div>
-                </a>
-            </div>
-        {% endfor %}
-    </div>
+                    <div class="card-action center-align">
+                        <span class="chip category-chip">Start Reading &rarr;</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    {% empty %}
+        <div class="col s12 center-align">
+            <p class="grey-text">No series available in this category yet.</p>
+        </div>
+    {% endfor %}
+</div>
+
 {% endblock %}

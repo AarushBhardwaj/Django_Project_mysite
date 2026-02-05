@@ -1,16 +1,37 @@
 <nav>
     <div class="nav-wrapper">
-      <a href="/" class="brand-logo">Tutorials</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="/">Home</a></li>
-        {% if user.is_authenticated %}
-          <li><a href="/account">{{user.username}}</a></li>
-          <li><a href="/logout">Logout</a></li>
-        {% else %}
-          <li><a href="/register">Register</a></li>
-          <li><a href="/login">Login</a></li>
-        {% endif %}
-      </ul>
+        <a href="{% url 'main:homepage' %}" class="brand-logo">&nbsp; Tutorials</a>
+        <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="{% url 'main:homepage' %}">Home</a></li>
+            <li><a href="{% url 'main:search' %}">Search</a></li>
+            <li><a href="{% url 'main:contact' %}">Contact</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'main:account' %}">{{ user.username }}</a></li>
+                <li><a href="{% url 'main:logout' %}">Logout</a></li>
+            {% else %}
+                <li><a href="{% url 'main:register' %}">Register</a></li>
+                <li><a href="{% url 'main:login' %}">Login</a></li>
+            {% endif %}
+        </ul>
     </div>
-  </nav>
+</nav>
 
+<!-- Mobile Sidenav -->
+<ul class="sidenav" id="mobile-nav">
+    <li><div class="user-view">
+        <span class="white-text" style="font-size: 1.5rem; color: #1565c0 !important; font-weight: 500;">Tutorials</span>
+    </div></li>
+    <li><div class="divider"></div></li>
+    <li><a href="{% url 'main:homepage' %}"><i class="material-icons">home</i>Home</a></li>
+    <li><a href="{% url 'main:search' %}"><i class="material-icons">search</i>Search</a></li>
+    <li><a href="{% url 'main:contact' %}"><i class="material-icons">mail</i>Contact</a></li>
+    <li><div class="divider"></div></li>
+    {% if user.is_authenticated %}
+        <li><a href="{% url 'main:account' %}"><i class="material-icons">person</i>{{ user.username }}</a></li>
+        <li><a href="{% url 'main:logout' %}"><i class="material-icons">exit_to_app</i>Logout</a></li>
+    {% else %}
+        <li><a href="{% url 'main:register' %}"><i class="material-icons">person_add</i>Register</a></li>
+        <li><a href="{% url 'main:login' %}"><i class="material-icons">login</i>Login</a></li>
+    {% endif %}
+</ul>

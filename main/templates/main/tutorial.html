@@ -1,37 +1,89 @@
 {% extends 'main/header.html' %}
 
+{% block title %}{{ tutorial.tutorial_title }} - Tutorials{% endblock %}
+
 {% block content %}
 
-    <div class="row">
+<div class="breadcrumb-nav">
+    <a href="{% url 'main:homepage' %}">Home</a> &rsaquo;
+    <a href="/{{ tutorial.tutorial_series.tutorial_category.category_slug }}">{{ tutorial.tutorial_series.tutorial_category.tutorial_category }}</a> &rsaquo;
+    <span class="grey-text">{{ tutorial.tutorial_title }}</span>
+</div>
 
-        <div class="col s12, m8, l8">
-            <h3>{{tutorial.tutorial_title}}</h3>
-            <p style="font-size:70%">Published {{tutorial.tutorial_published}}</p>
-            {{tutorial.tutorial_content|safe}}
+<div class="row">
+    <!-- Main Content -->
+    <div class="col s12 m8 l8">
+        <div class="card-panel">
+            <h4 style="color: #1565c0; font-weight: 400;">{{ tutorial.tutorial_title }}</h4>
+            <p class="grey-text" style="font-size: 0.9rem;">
+                <i class="material-icons tiny">schedule</i>
+                Published {{ tutorial.tutorial_published|date:"F j, Y" }}
+                &nbsp;|&nbsp;
+                <i class="material-icons tiny">folder</i>
+                {{ tutorial.tutorial_series.tutorial_series }}
+            </p>
+            <div class="divider" style="margin: 15px 0;"></div>
+            <div class="tutorial-content">
+                {{ tutorial.tutorial_content|safe }}
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="divider" style="margin: 30px 0 20px;"></div>
+            <div class="row">
+                <div class="col s6">
+                    {% if this_tutorial_idx > 0 %}
+                        <a href="/{{ sidebar_list.prev.tutorial_slug }}" class="btn waves-effect waves-light blue">
+                            <i class="material-icons left">arrow_back</i> Previous
+                        </a>
+                    {% endif %}
+                </div>
+                <div class="col s6 right-align">
+                    {% if has_next %}
+                        <a href="/{{ sidebar_list.next.tutorial_slug }}" class="btn waves-effect waves-light blue">
+                            Next <i class="material-icons right">arrow_forward</i>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
         </div>
+    </div>
 
-        <div class="col s12 m4 l4">
-            <ul class="collapsible popout">
-                {% for tutorial in sidebar %}
+    <!-- Sidebar -->
+    <div class="col s12 m4 l4 tutorial-sidebar">
+        <div class="card-panel">
+            <h6 style="font-weight: 500; color: #1565c0; margin-bottom: 15px;">
+                <i class="material-icons tiny">list</i>
+                In This Series
+            </h6>
+            <ul class="collapsible popout" style="box-shadow: none; border: none;">
+                {% for tut in sidebar %}
                     {% if forloop.counter0 == this_tutorial_idx %}
                         <li class="active">
-                            <div class="collapsible-header">{{tutorial.tutorial_title}}<br>
-                            	<font color='grey'>(Currently Viewing)</font>
+                            <div class="collapsible-header" style="background-color: #e3f2fd; font-weight: 500;">
+                                <i class="material-icons" style="color: #1565c0;">play_arrow</i>
+                                {{ tut.tutorial_title }}
+                            </div>
+                            <div class="collapsible-body" style="padding: 10px 16px;">
+                                <span class="grey-text">Currently viewing</span>
                             </div>
                         </li>
                     {% else %}
                         <li>
-                            <div class="collapsible-header">{{tutorial.tutorial_title}}</div>
-                            <div class="collapsible-body">
-                                <p><a href="/{{tutorial.tutorial_slug}}"><button class="btn waves-effect waves-light right-align" style="background-color:yellow; color:black">Go</button></a></p>
-
+                            <div class="collapsible-header">
+                                <i class="material-icons">chevron_right</i>
+                                {{ tut.tutorial_title }}
+                            </div>
+                            <div class="collapsible-body" style="padding: 10px 16px;">
+                                <a href="/{{ tut.tutorial_slug }}" class="btn waves-effect waves-light blue" style="width: 100%;">
+                                    Read Tutorial
+                                </a>
                             </div>
                         </li>
                     {% endif %}
                 {% endfor %}
             </ul>
         </div>
-
     </div>
+</div>
 
 {% endblock %}

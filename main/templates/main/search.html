@@ -1,0 +1,66 @@
+{% extends "main/header.html" %}
+
+{% block title %}Search - Tutorials{% endblock %}
+
+{% block content %}
+<h4 class="section-title">Search Tutorials</h4>
+
+<div class="row search-box">
+    <div class="col s12">
+        <form method="GET" action="{% url 'main:search' %}">
+            <div class="input-field">
+                <i class="material-icons prefix">search</i>
+                <input type="text" name="q" id="search-input" value="{{ query|default:'' }}" placeholder="Search tutorials, categories, or series...">
+            </div>
+        </form>
+    </div>
+</div>
+
+{% if query %}
+    <p class="grey-text">
+        {% if results %}
+            Found {{ results|length }} result{{ results|pluralize }} for "<strong>{{ query }}</strong>"
+        {% else %}
+            No results found for "<strong>{{ query }}</strong>"
+        {% endif %}
+    </p>
+
+    {% if results %}
+        <div class="search-results">
+            <ul class="collection">
+                {% for result in results %}
+                    <li class="collection-item">
+                        <a href="/{{ result.slug }}">
+                            <span class="title">{{ result.title }}</span>
+                        </a>
+                        <p>{{ result.summary }}</p>
+                        <span class="chip category-chip" style="font-size: 0.8rem;">{{ result.type }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% else %}
+        <div class="center-align" style="padding: 40px 0;">
+            <i class="material-icons" style="font-size: 4rem; color: #bdbdbd;">search_off</i>
+            <p class="grey-text">Try different keywords or browse our <a href="{% url 'main:homepage' %}">categories</a>.</p>
+        </div>
+    {% endif %}
+{% else %}
+    <div class="center-align" style="padding: 40px 0;">
+        <i class="material-icons" style="font-size: 4rem; color: #bdbdbd;">search</i>
+        <p class="grey-text">Enter a search term above to find tutorials.</p>
+    </div>
+
+    {% if categories %}
+        <h5 style="color: #616161; font-weight: 400;">Popular Categories</h5>
+        <div class="row">
+            {% for cat in categories %}
+                <div class="col s12 m4">
+                    <a href="{{ cat.category_slug }}" class="chip category-chip" style="cursor: pointer;">{{ cat.tutorial_category }}</a>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endif %}
+
+{% endblock %}

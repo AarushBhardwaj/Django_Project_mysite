@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import datetime
+from django.utils import timezone
 
 # Create your models here.
 
@@ -18,7 +18,7 @@ class TutorialSeries(models.Model):
 
 	tutorial_series = models.CharField(max_length=200)
 	tutorial_category = models.ForeignKey(TutorialCategory,
-										  default=1, 
+										  default=1,
 										  verbose_name="Category",
 										  on_delete=models.SET_DEFAULT)
 	series_summary = models.CharField(max_length=200)
@@ -33,7 +33,7 @@ class TutorialSeries(models.Model):
 class Tutorial(models.Model):
 	tutorial_title = models.CharField(max_length=200)
 	tutorial_content = models.TextField()
-	tutorial_published = models.DateTimeField("date published", default=datetime.now())
+	tutorial_published = models.DateTimeField("date published", default=timezone.now)
 
 	tutorial_series = models.ForeignKey(TutorialSeries, default=1,
 									   verbose_name="Series",
@@ -43,4 +43,20 @@ class Tutorial(models.Model):
 
 	def __str__(self):
 		return self.tutorial_title
+
+
+class ContactMessage(models.Model):
+	name = models.CharField(max_length=200)
+	email = models.EmailField()
+	subject = models.CharField(max_length=200)
+	message = models.TextField()
+	created_at = models.DateTimeField(auto_now_add=True)
+	is_read = models.BooleanField(default=False)
+
+	class Meta:
+		ordering = ['-created_at']
+		verbose_name_plural = "Contact Messages"
+
+	def __str__(self):
+		return f"{self.subject} - {self.name}"
 

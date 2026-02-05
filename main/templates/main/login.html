@@ -1,16 +1,31 @@
 {% extends "main/header.html" %}
 
+{% block title %}Login - Tutorials{% endblock %}
+
 {% block content %}
-	<form method="POST">
-		{% csrf_token %}
-		{{form.as_p}}
-
-		<button class ="btn" style="background-color:lightblue; color:teal;" type='submit'>Login</button> 
-
-		<button class ="btn" style="background-color:lightblue; color:teal;" type='cancel'>Cancel</button>
-	</form>
-	
-	New User?  <a href="/register"><strong>SignUp</strong></a> 
-
- {% endblock %}
-
+<div class="row">
+    <div class="col s12 m8 offset-m2 l6 offset-l3">
+        <div class="card form-card">
+            <div class="card-content">
+                <h4 class="center-align"><i class="material-icons" style="font-size: 3rem; color: #1565c0;">login</i></h4>
+                <h4 class="center-align">Login</h4>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="center-align" style="margin-top: 20px;">
+                        <button class="btn waves-effect waves-light blue" type="submit">
+                            <i class="material-icons left">login</i> Login
+                        </button>
+                        <a href="{% url 'main:homepage' %}" class="btn waves-effect waves-light grey">
+                            Cancel
+                        </a>
+                    </div>
+                </form>
+                <div class="center-align" style="margin-top: 20px;">
+                    <p>New user? <a href="{% url 'main:register' %}"><strong>Sign Up</strong></a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
