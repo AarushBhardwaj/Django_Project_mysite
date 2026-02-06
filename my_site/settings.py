@@ -23,43 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '0-nb*(zkid94w$@_1kzlrd*0w*nju5@_l6g%70f!l4=#ywx@dv'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
-# 'theme': 'modern',
-
-# TINYMCE_DEFAULT_CONFIG = {
-#     'height': 360,
-#     'width': 1120,
-#     'cleanup_on_startup': True,
-#     'content_css': 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css',
-#     'custom_undo_redo_levels': 20,
-#     'selector': 'textarea',
-#     'theme': 'silver',
-#     'plugins': '''
-#             textcolor save link image media preview codesample contextmenu
-#             table code lists fullscreen  insertdatetime  nonbreaking
-#             contextmenu directionality searchreplace wordcount visualblocks
-#             visualchars code fullscreen autolink lists  charmap print  hr
-#             anchor pagebreak
-#             ''',
-#     'toolbar1': '''
-#             fullscreen preview bold italic underline | fontselect,
-#             fontsizeselect  | forecolor backcolor | alignleft alignright |
-#             aligncenter alignjustify | indent outdent | bullist numlist table |
-#             | link image media | codesample |
-#             ''',
-#     'toolbar2': '''
-#             visualblocks visualchars |
-#             charmap hr pagebreak nonbreaking anchor |  code |
-#             ''',
-#     'contextmenu': 'formats | link image',
-#     'menubar': True,
-#     'statusbar': True,
-#     }
-
-
 
 # Application definition
 
@@ -71,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main.apps.MainConfig',
-    # 'tinymce',
 ]
 
 MIDDLEWARE = [
@@ -153,3 +118,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

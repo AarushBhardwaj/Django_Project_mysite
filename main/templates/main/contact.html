@@ -1,0 +1,53 @@
+{% extends "main/header.html" %}
+
+{% block title %}Contact Us - Tutorials{% endblock %}
+
+{% block content %}
+<h4 class="section-title">Contact Us</h4>
+
+<div class="row contact-section">
+    <!-- Contact Form -->
+    <div class="col s12 m8">
+        <div class="card form-card">
+            <div class="card-content">
+                <h5 style="color: #1565c0; font-weight: 400;">Send us a Message</h5>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div style="margin-top: 20px;">
+                        <button class="btn waves-effect waves-light blue" type="submit">
+                            <i class="material-icons left">send</i> Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Info -->
+    <div class="col s12 m4">
+        <div class="card contact-info-card">
+            <div class="card-content">
+                <i class="material-icons">email</i>
+                <h6>Email</h6>
+                <p class="grey-text">contact@tutorials.com</p>
+            </div>
+        </div>
+        <div class="card contact-info-card">
+            <div class="card-content">
+                <i class="material-icons">schedule</i>
+                <h6>Response Time</h6>
+                <p class="grey-text">We typically respond within 24 hours</p>
+            </div>
+        </div>
+        <div class="card contact-info-card">
+            <div class="card-content">
+                <i class="material-icons">help_outline</i>
+                <h6>FAQ</h6>
+                <p class="grey-text">Check our tutorials for common questions</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

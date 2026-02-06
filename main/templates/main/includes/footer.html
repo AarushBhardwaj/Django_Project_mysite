@@ -1,0 +1,38 @@
+<footer class="page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <h5 class="white-text">Tutorials</h5>
+                <p class="grey-text text-lighten-4">
+                    A comprehensive learning platform offering tutorials on various programming topics.
+                    Browse by category, follow along with series, and level up your skills.
+                </p>
+            </div>
+            <div class="col l3 offset-l1 s6">
+                <h5 class="white-text">Navigate</h5>
+                <div class="footer-links">
+                    <a href="{% url 'main:homepage' %}">Home</a>
+                    <a href="{% url 'main:search' %}">Search</a>
+                    <a href="{% url 'main:contact' %}">Contact</a>
+                </div>
+            </div>
+            <div class="col l2 s6">
+                <h5 class="white-text">Account</h5>
+                <div class="footer-links">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'main:account' %}">Profile</a>
+                        <a href="{% url 'main:logout' %}">Logout</a>
+                    {% else %}
+                        <a href="{% url 'main:register' %}">Register</a>
+                        <a href="{% url 'main:login' %}">Login</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            &copy; {% now "Y" %} Tutorials. All rights reserved.
+        </div>
+    </div>
+</footer>

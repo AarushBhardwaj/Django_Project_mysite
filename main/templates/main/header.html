@@ -1,33 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
     {% load static %}
-    <!-- Prism CSS -->
-    <link href="{% static 'tinymce/css/prism.css' %}" rel="stylesheet">
-    <!-- Compiled and minified CSS -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Tutorials{% endblock %}</title>
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Materialize CSS -->
     <link href="{% static 'main/css/materialize.css' %}" rel="stylesheet">
-    <!-- Compiled and minified JavaScript for Materialize CSS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Custom CSS -->
+    <link href="{% static 'main/css/style.css' %}" rel="stylesheet">
 </head>
 
-
 <body>
-  {% include "main/includes/navbar.html" %}
-  {% include "main/includes/messages.html"%}
-  <div class="container">
-    <br>
-    {% block content %}
-    {% endblock %}
-</div>
+    {% include "main/includes/navbar.html" %}
+    {% include "main/includes/messages.html" %}
+
+    <main>
+        <div class="container">
+            <br>
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+
+    {% include "main/includes/footer.html" %}
+
+    <!-- Materialize JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            M.AutoInit();
+            // Initialize sidenav
+            var elems = document.querySelectorAll('.sidenav');
+            M.Sidenav.init(elems);
+            // Initialize collapsible
+            var collapsibles = document.querySelectorAll('.collapsible');
+            M.Collapsible.init(collapsibles);
+        });
+    </script>
+    {% block extra_js %}{% endblock %}
 </body>
-
-<script src="{% static 'tinymce/js/prism.js' %}"></script>
-<script>M.AutoInit();</script>
-
-<!-- {% for tut in tutorials %}
-			<p>{{tut.tutorial_title}}</p>
-			<p>{{tut.tutorial_published}}</p>
-			<p>{{tut.tutorial_content|safe}}</p>
-
-			<br><br>
-			{% endfor %}
-		 -->
-	
+</html>

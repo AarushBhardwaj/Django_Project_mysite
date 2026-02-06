@@ -1,19 +1,64 @@
 {% extends 'main/header.html' %}
 
+{% block title %}Tutorials - Home{% endblock %}
+
 {% block content %}
+
+<!-- Hero Section -->
+<div style="margin: -24px -24px 0 -24px;">
+</div>
+
+<div class="section">
+    <div class="row">
+        <div class="col s12 center-align">
+            <h3 class="section-title" style="display: inline-block;">Browse Categories</h3>
+            <p class="grey-text">Choose a category to start learning</p>
+        </div>
+    </div>
 
     <div class="row">
         {% for cat in categories %}
             <div class="col s12 m6 l4">
-                <a href="{{cat.category_slug}}", style="color:#000">
-                    <div class="card hoverable">
-                        <div class="card-content">
-                            <div class="card-title">{{cat.tutorial_category}}</div>
-                            <p>{{cat.category_summary}}</p>
+                <a href="{{ cat.category_slug }}" style="color: #000;">
+                    <div class="card hoverable category-card">
+                        <div class="card-content center-align">
+                            <i class="material-icons">{% if forloop.counter == 1 %}school{% elif forloop.counter == 2 %}trending_up{% elif forloop.counter == 3 %}star{% else %}book{% endif %}</i>
+                            <span class="card-title">{{ cat.tutorial_category }}</span>
+                            <p>{{ cat.category_summary }}</p>
+                        </div>
+                        <div class="card-action center-align">
+                            <span class="chip category-chip">Explore &rarr;</span>
                         </div>
                     </div>
                 </a>
             </div>
+        {% empty %}
+            <div class="col s12 center-align">
+                <p class="grey-text">No categories available yet. Check back soon!</p>
+            </div>
         {% endfor %}
     </div>
+</div>
+
+<!-- Features Section -->
+<div class="section">
+    <div class="row">
+        <div class="col s12 m4 center-align">
+            <i class="material-icons" style="font-size: 3rem; color: #1565c0;">library_books</i>
+            <h5>Organized Content</h5>
+            <p class="grey-text">Tutorials organized by categories and series for structured learning.</p>
+        </div>
+        <div class="col s12 m4 center-align">
+            <i class="material-icons" style="font-size: 3rem; color: #1565c0;">trending_up</i>
+            <h5>Progressive Learning</h5>
+            <p class="grey-text">Start from fundamentals and work your way up to advanced topics.</p>
+        </div>
+        <div class="col s12 m4 center-align">
+            <i class="material-icons" style="font-size: 3rem; color: #1565c0;">search</i>
+            <h5>Easy to Find</h5>
+            <p class="grey-text">Search across all tutorials to find exactly what you need.</p>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

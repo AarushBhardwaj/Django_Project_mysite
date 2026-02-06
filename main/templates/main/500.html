@@ -1,0 +1,16 @@
+{% extends "main/header.html" %}
+
+{% block title %}Server Error - Tutorials{% endblock %}
+
+{% block content %}
+<div class="error-page">
+    <h1>500</h1>
+    <h4>Server Error</h4>
+    <p class="grey-text">Something went wrong on our end. Please try again later.</p>
+    <div style="margin-top: 30px;">
+        <a href="{% url 'main:homepage' %}" class="btn waves-effect waves-light blue btn-large">
+            <i class="material-icons left">home</i> Back to Home
+        </a>
+    </div>
+</div>
+{% endblock %}

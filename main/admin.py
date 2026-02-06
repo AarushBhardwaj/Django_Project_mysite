@@ -1,31 +1,37 @@
 from django.contrib import admin
-from .models import Tutorial, TutorialCategory, TutorialSeries
-# from tinymce.widgets import TinyMCE
-from django.db import models
+from .models import Tutorial, TutorialCategory, TutorialSeries, ContactMessage
 
 # Register your models here.
 
 
 class TutorialAdmin(admin.ModelAdmin):
-	# fields = ["tutorial_title",
-	# 		  "tutorial_published",
-	# 		  "tutorial_content"]
-
-	# To cluster Fields together
-
 	fieldsets = [
 			("Title/Date", {"fields": ["tutorial_title", "tutorial_published"]}),
 			("URL", {"fields": ["tutorial_slug"]}),
 			("Series", {"fields": ["tutorial_series"]}),
 			("Content", {"fields": ["tutorial_content"]})
-
 	]
+	list_display = ['tutorial_title', 'tutorial_series', 'tutorial_published']
+	search_fields = ['tutorial_title', 'tutorial_content']
 
-	# formfield_overrides = {
-    #     models.TextField: {'widget': TinyMCE()},
-    #     }
 
-admin.site.register(TutorialCategory)
-admin.site.register(TutorialSeries)
+class TutorialCategoryAdmin(admin.ModelAdmin):
+	list_display = ['tutorial_category', 'category_summary', 'category_slug']
+
+
+class TutorialSeriesAdmin(admin.ModelAdmin):
+	list_display = ['tutorial_series', 'tutorial_category', 'series_summary']
+
+
+class ContactMessageAdmin(admin.ModelAdmin):
+	list_display = ['subject', 'name', 'email', 'created_at', 'is_read']
+	list_filter = ['is_read', 'created_at']
+	search_fields = ['name', 'email', 'subject', 'message']
+	readonly_fields = ['name', 'email', 'subject', 'message', 'created_at']
+
+
+admin.site.register(TutorialCategory, TutorialCategoryAdmin)
+admin.site.register(TutorialSeries, TutorialSeriesAdmin)
 admin.site.register(Tutorial, TutorialAdmin)
+admin.site.register(ContactMessage, ContactMessageAdmin)
 
